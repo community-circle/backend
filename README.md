@@ -1,9 +1,5 @@
-
 # install dependencies 
 npm intall
 
-#run app
+#run app (on localhost:3000)  
 npm run start 
-
-
-#runs on localhost:3000
