@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put} from '@nestjs/common';
 import { AppService } from './app.service';
-import { Shelter } from './shelter.models';
+import { Shelter, Quiz } from './shelter.models';
 import { ShelterUpdateDto } from './shelterUpdate.dto';
 
 @Controller()
@@ -28,4 +28,20 @@ export class AppController {
   async deleteShelter(@Param('id') id:string){
     return this.appService.deleteShelter(id)
   }
+
+  @Get('/quizzes/')
+  readQuizzes(){
+    return this.appService.readQuizzes()
+  }
+
+  @Get('/quiz:id')
+  readQuizById(id){
+    return this.appService.readQuizById(id)
+  }
+
+  @Post('/quizzes/create')
+  async createQuiz(@Body() userDto: Quiz){
+    return this.appService.createQuiz(userDto)
+  }
+
 }

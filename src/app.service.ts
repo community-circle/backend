@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { Shelter, ShelterDocument } from './shelter.models';
+import { Shelter, Quiz, ShelterDocument, QuizDocument } from './shelter.models';
 import {Model} from 'mongoose'
 import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class AppService {
   constructor(
-    @InjectModel('shelters') private readonly shelterModel: Model<ShelterDocument>
+    @InjectModel('shelters') private readonly shelterModel: Model<ShelterDocument>,
+    @InjectModel('quizzes') private readonly quizModel: Model<QuizDocument>
   ){}
 
   //  creating a user 
@@ -31,4 +32,20 @@ export class AppService {
   async deleteShelter(id){
     return this.shelterModel.findByIdAndRemove(id)
   }
+
+  async readQuizzes(){
+    return this.quizModel.find({})
+    .then((user)=>{return user})
+    .catch((err)=>console.log(err))
+  }
+
+  async createQuiz(quiz: Quiz): Promise<Quiz>{
+    const newQuiz = new this.quizModel(quiz)
+    return newQuiz.save()
+ }
+ async readQuizById(id){
+  return this.quizModel.findOne({ quiz_id: id } )
+  .then((quiz)=>{return quiz})
+  .catch((err)=>console.log(err))
+}
 }

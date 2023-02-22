@@ -2,14 +2,12 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 export type ShelterDocument = Shelter & Document
+export type QuizDocument = Quiz & Document
 
 @Schema()
 export class Shelter {
   @Prop()
   name: string;
-
-  // @Prop()
-  // address: string;
 
   @Prop()
   unit_type: string;
@@ -27,5 +25,24 @@ export class Shelter {
   date_added: Date;
 }
 
+@Schema()
+export class Quiz{
+
+  @Prop()
+  name: string;
+
+  @Prop()
+  quiz_id:string;
+
+  @Prop()
+  category: string;
+
+  @Prop()
+  questions: any[];
+
+}
+
 
 export const ShelterSchema = SchemaFactory.createForClass(Shelter)
+
+export const QuizSchema = SchemaFactory.createForClass(Quiz)
